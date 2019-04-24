@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,10 +9,20 @@ import { ActivatedRoute } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   constructor(
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    const token = localStorage.getItem('id_token');
+    console.log('from login ngOnInIt token: ', token);
+    if (token == null) {
+      this.loggedIn = false;
+      this.router.navigate(['login']);
+
+    } else {
+      this.loggedIn = true;
+    }
   }
 
 }
